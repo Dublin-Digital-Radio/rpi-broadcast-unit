@@ -1,0 +1,21 @@
+services:
+  ddr-rpi:
+    build: .
+    container_name: ddr-rpi
+    volumes:
+      - "./darkice.dev.cfg:/etc/darkice.cfg:ro"
+    privileged: true
+    restart: always
+
+  icecast2:
+    image: pltnk/icecast2
+    container_name: icecast2
+    ports:
+      - "8000:8000"
+    environment:
+      - "ICECAST_HOSTNAME=localhost"
+      - "ICECAST_SOURCE_PASSWORD=hackme"
+      - "ICECAST_ADMIN_PASSWORD=hackme"
+      - "ICECAST_RELAY_PASSWORD=hackme"
+      - "ICECAST_ADMIN_USERNAME=admin"
+    restart: always

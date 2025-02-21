@@ -12,9 +12,8 @@
 3. Boot up the Pi, update packages and use `raspi-config` to switch from Wayland to X11.
 4. Follow further instructions on [https://www.waveshare.com/wiki/2.8inch_DPI_LCD](https://www.waveshare.com/wiki/2.8inch_DPI_LCD) to update the `autostart` script and `libinput` config to rotate the screen.
 
-## Development
+## Development (Linux only)
 
 ```
-docker build -t ddr-rpi .
-docker run --rm -it --name ddr-rpi -p 8080:8080 ddr-rpi
+docker compose up
 ```
