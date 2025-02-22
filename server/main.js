@@ -20,13 +20,14 @@ router.get("/start", function (req, res) {
   });
 
   darkice.stderr.on("data", (data) => {
-    console.error(data);
+    console.error(`stderr: ${data}`);
     res.status(500).send(data);
   });
 
   // If after 100ms no error responses have been sent, assume it's all good
   setTimeout(() => {
     if (!res.writableFinished) {
+      darkice.stderr.removeAllListeners();
       res.sendStatus(200);
     }
   }, 100);
