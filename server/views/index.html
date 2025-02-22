@@ -12,7 +12,7 @@
 </style>
 <body>
   <div>
-    <div>
+    <div style="display: flex; justify-content: center">
       <img
         width="150"
         src="https://res.cloudinary.com/dhikr416c/image/upload/c_fill/v1739178229/logo_8c790367f0.png"
@@ -20,20 +20,31 @@
     </div>
     <div style="display: flex; justify-content: center">
       <div style="padding: 16px">
-        <button id="play" style="width: 45px; font-size: 32px">▶</button>
+        <button id="broadcast-toggle" style="font-size: 32px">Broadcast</button>
       </div>
     </div>
   </div>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      document
-        .getElementById("play")
-        .addEventListener("click", function (event) {
-          event.preventDefault();
-          fetch("/start")
-            .then((response) => response.text())
-            .then((responseText) => console.log(responseText));
-        });
+      const broadcastToggleButton = document.getElementById("broadcast-toggle");
+
+      broadcastToggleButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        if (event.currentTarget.innerText === "Broadcast") {
+          fetch("/start").then((response) => {
+            if (response.ok) {
+              broadcastToggleButton.innerText = "Stop";
+            } else {
+              alert("Error");
+            }
+          });
+        }
+
+        if (event.currentTarget.innerText === "Stop") {
+          fetch("/stop");
+          broadcastToggleButton.innerText = "Broadcast";
+        }
+      });
     });
   </script>
 </body>

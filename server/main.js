@@ -33,6 +33,12 @@ router.get("/start", function (req, res) {
   }, 100);
 });
 
+router.get("/stop", function (req, res) {
+  console.log("stop");
+  exec("killall darkice");
+  res.sendStatus(200);
+});
+
 app.use(express.static(path));
 app.use("/", router);
 
