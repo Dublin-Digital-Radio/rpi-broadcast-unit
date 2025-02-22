@@ -18,13 +18,22 @@
         src="https://res.cloudinary.com/dhikr416c/image/upload/c_fill/v1739178229/logo_8c790367f0.png"
       />
     </div>
-    <div style="display: flex; justify-content: space-between">
+    <div style="display: flex; justify-content: center">
       <div style="padding: 16px">
-        <button style="width: 45px; font-size: 32px">⏺</button>
-      </div>
-      <div style="padding: 16px">
-        <button style="width: 45px; font-size: 32px">▶</button>
+        <button id="play" style="width: 45px; font-size: 32px">▶</button>
       </div>
     </div>
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document
+        .getElementById("play")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          fetch("/start")
+            .then((response) => respones.text())
+            .then((responseText) => console.log(responseText));
+        });
+    });
+  </script>
 </body>

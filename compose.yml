@@ -2,6 +2,8 @@ services:
   ddr-rpi:
     build: .
     container_name: ddr-rpi
+    ports:
+      - "8080:8080"
     volumes:
       - "./darkice.dev.cfg:/etc/darkice.cfg:ro"
     privileged: true
