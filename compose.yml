@@ -6,6 +6,7 @@ services:
       - "8080:8080"
     volumes:
       - "./darkice.dev.cfg:/etc/darkice.cfg:ro"
+      - "./server:/home/node/app/server"
     privileged: true
     restart: always
 
