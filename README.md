@@ -5,6 +5,13 @@
 - [Raspberry Pi 4 Model B](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/)
 - [Waveshare 2.8inch DPI LCD touchscreen](https://www.waveshare.com/wiki/2.8inch_DPI_LCD#Rotation_.28Working_with_Raspberry_Pi.29)
 
+## Software
+
+- Darkice
+- Unclutter
+- xserver-xorg-input-libinput
+- Node.js
+
 ## Getting Started
 
 1. Using [Raspberry Pi Imager](https://www.raspberrypi.com/software/), install Raspberry Pi OS Bookworm on an SD card.
