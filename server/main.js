@@ -25,17 +25,77 @@ router.get("/start", function (req, res) {
   });
 
   // If after 100ms no error responses have been sent, assume it's all good
-  setTimeout(() => {
+  setTimeout(async () => {
     if (!res.writableFinished) {
       darkice.stderr.removeAllListeners();
+
+      const liveEventStreamConfig = await fetch(
+        "https://ddr-cms.fly.dev/api/live-stream-config"
+      ).then((response) => response.json());
+
+      if (
+        !liveEventStreamConfig.data.attributes.playerEnabled &&
+        process.env.DDR_CMS_API_TOKEN
+      ) {
+        try {
+          await fetch("https://ddr-cms.fly.dev/api/live-stream-config", {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${process.env.DDR_CMS_API_TOKEN}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              data: {
+                playerEnabled: true,
+              },
+            }),
+          }).then(async (response) => {
+            if (!response.ok) {
+              console.error(await response.text());
+            }
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
       res.sendStatus(200);
     }
   }, 100);
 });
 
-router.get("/stop", function (req, res) {
+router.get("/stop", async function (req, res) {
   console.log("stop");
   exec("killall darkice");
+  const liveEventStreamConfig = await fetch(
+    "https://ddr-cms.fly.dev/api/live-stream-config"
+  ).then((response) => response.json());
+
+  if (
+    liveEventStreamConfig.data.attributes.playerEnabled &&
+    process.env.DDR_CMS_API_TOKEN
+  ) {
+    try {
+      await fetch("https://ddr-cms.fly.dev/api/live-stream-config", {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${process.env.DDR_CMS_API_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: {
+            playerEnabled: false,
+          },
+        }),
+      }).then(async (response) => {
+        if (!response.ok) {
+          console.error(await response.text());
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
   res.sendStatus(200);
 });
 
