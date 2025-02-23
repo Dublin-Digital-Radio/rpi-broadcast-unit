@@ -38,6 +38,7 @@ router.get("/start", function (req, res) {
         !liveEventStreamConfig.data.attributes.playerEnabled &&
         process.env.DDR_CMS_API_TOKEN
       ) {
+        console.log("Updating live stream config");
         try {
           await fetch("https://ddr-cms.fly.dev/api/live-stream-config", {
             method: "PUT",
