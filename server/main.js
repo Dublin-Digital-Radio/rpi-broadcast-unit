@@ -1,14 +1,17 @@
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env"),
+});
 const { exec } = require("child_process");
 const express = require("express");
 const app = express();
 const router = express.Router();
 
-const path = __dirname + "/views/";
+const staticPath = __dirname + "/views/";
 const port = 8080;
 
 router.get("/", function (req, res) {
-  res.sendFile(path + "index.html");
+  res.sendFile(staticPath + "index.html");
 });
 
 router.get("/start", function (req, res) {
@@ -101,7 +104,7 @@ router.get("/stop", async function (req, res) {
   res.sendStatus(200);
 });
 
-app.use(express.static(path));
+app.use(express.static(staticPath));
 app.use("/", router);
 
 app.listen(port, function () {
