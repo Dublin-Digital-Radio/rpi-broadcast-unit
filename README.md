@@ -1,3 +1,5 @@
+This repository has been moved to https://codeberg.org/Dublin-Digital-Radio/rpi-broadcast-unit.
+
 # ddr. Mobile Broadcasting Unit
 
 ## Hardware
